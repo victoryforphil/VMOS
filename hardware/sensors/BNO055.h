@@ -50,7 +50,33 @@ class BNO055{
             EUL_Roll_LSB    = 0x1C,
             EUL_Roll_MSB    = 0x1D,
             EUL_Pitch_LSB   = 0x1E,
-            EUL_Pitch_MSB   = 0x1F
+            EUL_Pitch_MSB   = 0x1F,
+
+            QUA_Data_w_LSB  = 0x20,
+            QUA_Data_w_MSB  = 0x21,
+            QUA_Data_x_LSB  = 0x22,
+            QUA_Data_x_MSB  = 0x23,
+            QUA_Data_y_LSB  = 0x24,
+            QUA_Data_y_MSB  = 0x25,
+            QUA_DATA_z_LSB  = 0x26,
+            QUA_Data_z_MSB  = 0x27,
+
+            LIA_Data_X_LSB  = 0x28,
+            LIA_Data_X_MSB  = 0x29,
+            LIA_Data_Y_LSB  = 0x2A,
+            LIA_Data_Y_MSB  = 0x2B,
+            LIA_Data_Z_LSB  = 0x2C,
+            LIA_Data_Z_MSB  = 0x2D,
+
+            GRV_Data_X_LSB  = 0x2E,
+            GRV_Data_X_MSB  = 0x2F,
+            GRV_Data_Y_LSB  = 0x30,
+            GRV_Data_Y_MSB  = 0x31,
+            GRV_Data_Z_LSB  = 0x32,
+            GRV_Data_Z_MSB  = 0x33,
+
+            TEMP            = 0x34,
+            CALIB_STATE     = 0x35
 
         };
 
