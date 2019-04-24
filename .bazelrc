@@ -1,0 +1,12 @@
+# Use our custom-configured c++ toolchain.
+
+build:arm64 --crosstool_top=//toolchain:arm64
+
+# Use --cpu as a differentiator.
+
+build:arm64 --cpu=arm64
+
+# Use the default Bazel C++ toolchain to build the tools used during the
+# build.
+
+# build:arm64 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain

@@ -1,8 +1,9 @@
-cc_binary(
-    name = "vmos-main",
-    srcs = ["main.cpp"],
+cc_library(
+    name = "vmos-core",
+    visibility = ["//visibility:public"],
     deps = [
         "//core/threading:vmos-threading",
-        "//core/threading:vmos-math",
+        "//core/math:vmos-math",
     ],
 )
+
