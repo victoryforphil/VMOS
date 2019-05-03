@@ -99,12 +99,6 @@ class BNO055{
 
     private:
         BNO055Mode mSelectedMode;
-
-        int file_i2c;
-
-
-        unsigned char readI2C(size_t length);
-
         void mergeLSBMSB(char* in, char** out);
 
 };
