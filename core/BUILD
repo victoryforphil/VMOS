@@ -4,6 +4,7 @@ cc_library(
     deps = [
         "//core/threading:vmos-threading",
         "//core/math:vmos-math",
+        "//core/logging:vmos-logging",
     ],
 )
 

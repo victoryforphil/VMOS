@@ -1,5 +1,5 @@
 #include "euler.hpp"
 
 std::string Euler::ToString(){
-    return "Euler: " + std::to_string(x) ;
+    return "Euler: x=" + std::to_string(x) + ", y=" + std::to_string(y) + ", z=" + std::to_string(z) ;
 }

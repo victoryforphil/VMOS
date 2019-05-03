@@ -1,14 +1,13 @@
+#ifndef _EULER_H_
+#define _EULER_H_
+
 #include <string>
 
-enum EulerUnits {
-    DEGREES = 0,
-    RADIANS = 1
-};
 
 class Euler{
     public:
         double x,y,z;
-        EulerUnits units = DEGREES;
+       
 
         Euler(){
            x = 0;
@@ -23,3 +22,5 @@ class Euler{
 
         std::string ToString();
 };
+
+#endif

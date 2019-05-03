@@ -1,0 +1,2 @@
+scp -r src/ nvidia
+@tegra-ubuntu.local:/home/nvidia/VMOS

@@ -5,6 +5,8 @@
 #include <sys/ioctl.h>			//Needed for I2C port
 #include <linux/i2c-dev.h>	
 
+
+#include "core/math/euler.hpp"
 //https://cdn-shop.adafruit.com/datasheets/BST_BNO055_DS000_12.pdf
 class BNO055{
     
@@ -91,8 +93,9 @@ class BNO055{
 
         
         bool Init(int i2cPort);
-
+        int Check(); // Check status of IMU (0 = Connected, 1 = Not Connected)
         int GetChipID();
+        Euler GetFusedOrieentation();
 
     private:
         BNO055Mode mSelectedMode;
