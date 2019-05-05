@@ -21,7 +21,7 @@ namespace VMOS
             //I2C();
             int setup(int addr);
             int readData(char &out, char reg);
-            char writeData();
+            int writeData(char reg, char data);
     };
 } // VMOS
 

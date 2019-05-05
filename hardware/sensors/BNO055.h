@@ -82,7 +82,9 @@ class BNO055
         GRV_Data_Z_MSB = 0x33,
 
         TEMP = 0x34,
-        CALIB_STATE = 0x35
+        CALIB_STATE = 0x35,
+        OPR_MODE = 0X3D,
+        PWR_MODE = 0X3E
 
     };
 
@@ -91,12 +93,40 @@ class BNO055
 
     };
 
+    /*
+  #define BNO055_OPERATION_MODE_CONFIG			(0X00)
+#define BNO055_OPERATION_MODE_ACCONLY			(0X01)
+#define BNO055_OPERATION_MODE_MAGONLY			(0X02)
+#define BNO055_OPERATION_MODE_GYRONLY			(0X03)
+#define BNO055_OPERATION_MODE_ACCMAG			(0X04)
+#define BNO055_OPERATION_MODE_ACCGYRO			(0X05)
+#define BNO055_OPERATION_MODE_MAGGYRO			(0X06)
+#define BNO055_OPERATION_MODE_AMG				(0X07)
+#define BNO055_OPERATION_MODE_IMUPLUS			(0X08)
+#define BNO055_OPERATION_MODE_COMPASS			(0X09)
+#define BNO055_OPERATION_MODE_M4G				(0X0A)
+#define BNO055_OPERATION_MODE_NDOF_FMC_OFF		(0X0B)
+#define BNO055_OPERATION_MODE_NDOF	(0X0C)
+    */
     enum BNO055Mode
     {
-
+      CONFIG = 0x00,
+      ACC_ONLY = 0x01,
+      MAG_ONLY = 0x02,
+      GYRO_ONLY = 0x03,
+      ACC_MAG = 0x04,
+      ACC_GYRO = 0x05,
+      MAG_GYRO = 0x06,
+      AMG = 0x07,
+      IMU_PLUS = 0x08,
+      COMPASS = 0x09,
+      M4G = 0x0A,
+      NDOF_FMC_OFF = 0x0B,
+      NDOF = 0x0C
     };
 
     bool Init();
+    bool Init(BNO055Mode operationMode);
     int Check(); // Check status of IMU (0 = Connected, 1 = Not Connected)
     int GetChipID();
     int GetAccID();
@@ -104,7 +134,7 @@ class BNO055
     int GetGyrID();
 
     int GetTempature();
-    Euler GetFusedOrieentation();
+    Euler GetFusedOrientation();
 
   private:
     I2C i2cClient;

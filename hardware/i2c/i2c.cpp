@@ -44,3 +44,17 @@ int I2C::readData(char &out, char reg){
     return 0;
     
 }
+
+
+int I2C::writeData(char reg, char data){
+    char buffer[] = {reg, data};
+    if (write(file, &buffer, 2) != 2)		//write() returns the number of bytes actually written, if it doesn't match then an error occurred (e.g. no response from the device)
+	{
+		/* ERROR HANDLING: i2c transaction failed */
+		printf("Failed to write to the i2c bus.\n");
+        return 1;
+	}
+
+ 
+    return 0;
+}
