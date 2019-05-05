@@ -3,12 +3,14 @@
 using namespace VMOS;
 
 bool BNO055::Init(){
-   BNO055::Init(BNO055Mode::NDOF);
+   return BNO055::Init(BNO055Mode::NDOF);
 }
 
 bool BNO055::Init(BNO055::BNO055Mode operationMode){
     i2cClient.setup(0x28);
     i2cClient.writeData(OPR_MODE, operationMode);
+
+    return true;
 }
 
 /*
@@ -74,52 +76,50 @@ int BNO055::GetTempature(){
 }
 
 
-Euler BNO055::GetFusedOrientation(){
-    Euler errorEuler(-1, -1,-1);
+int BNO055::GetFusedOrientation(Euler* orientation){
+  
 
     char headingLSB, headingMSB, rollLSB, rollMSB, pitchLSB, pitchMSB;
 
     if(i2cClient.readData(headingLSB, EUL_Heading_LSB) != 0){
         Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-        return errorEuler;
+        return 1;
     }
 
     if(i2cClient.readData(headingMSB, EUL_Heading_MSB) != 0){
         Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-        return errorEuler;
+        return 1;
     }
 
 
 
     if(i2cClient.readData(rollLSB, EUL_Roll_LSB) != 0){
         Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-        return errorEuler;
+        return 1;
     }
 
     if(i2cClient.readData(rollMSB, EUL_Roll_MSB) != 0){
         Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-        return errorEuler;
+        return 1;
     }
 
 
 
     if(i2cClient.readData(pitchLSB, EUL_Pitch_LSB) != 0){
         Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-        return errorEuler;
+        return 1;
     }
 
     if(i2cClient.readData(pitchMSB, EUL_Pitch_MSB) != 0){
         Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-        return errorEuler;
+        return 1;
     }
 
-    Euler _orient;
-
-   
-    _orient.x = (headingLSB | (headingMSB << 8) ) / 16;
-    _orient.y = 20;
-    _orient.z = 30;
+    
+    orientation->setYaw((headingLSB | (headingMSB << 8) ) / 16);
+    orientation->setRoll((rollLSB | (rollMSB << 8) ) / 16);
+    orientation->setPitch((pitchLSB | (pitchMSB << 8) ) / 16);
     
 
-    return _orient;
+    return 0;
 }

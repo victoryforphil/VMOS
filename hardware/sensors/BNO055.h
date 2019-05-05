@@ -1,3 +1,7 @@
+#ifndef _BNO055_H
+#define _BNO055_H
+
+
 #include <linux/i2c.h>
 #include <iostream>
 #include <unistd.h>    //Needed for I2C port
@@ -134,7 +138,7 @@ class BNO055
     int GetGyrID();
 
     int GetTempature();
-    Euler GetFusedOrientation();
+    int GetFusedOrientation(Euler* orientation);
 
   private:
     I2C i2cClient;
@@ -142,3 +146,4 @@ class BNO055
     void mergeLSBMSB(char *in, char **out);
 };
 } // namespace VMOS
+#endif
