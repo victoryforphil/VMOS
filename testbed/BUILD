@@ -4,6 +4,7 @@ cc_binary(
     deps = [
         "//core/threading:vmos-threading",
         "//core:vmos-core",
-        "//hardware/sensors:sensors",
+        "//hardware:vmos-hardware",
+        "//hardware/i2c:vmos-i2c",
     ],
 )
