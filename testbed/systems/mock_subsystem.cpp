@@ -7,7 +7,8 @@ using namespace TestBed;
 
 void VMOS::TestBed::MockSubsystem::operator()()
 {
-   
+    //queue = VMOS::QueueManager<int>::fetch("test");
+
     while (true)
     {
         tick();

@@ -16,10 +16,10 @@ cc_binary(
     srcs = ["threading.cpp"],
     linkopts = ["-pthread"],
     deps = [
-        "//core/threading:vmos-threading",
+        "//core/threading:vmos-queues",
         "//core:vmos-core",
         "//hardware:vmos-hardware",
         "//hardware/i2c:vmos-i2c",
-        "//testbed/systems:sensor-subsystem",
+        "//testbed/systems:mock-subsystem",
     ],
 )

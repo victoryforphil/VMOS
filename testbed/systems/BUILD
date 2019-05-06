@@ -13,8 +13,8 @@ cc_library(
 
 cc_library(
     name = "mock-subsystem",
-    srcs = ["mock.cpp"],
-    hdrs = ["mock.hpp"],
+    srcs = ["mock_subsystem.cpp"],
+    hdrs = ["mock_subsystem.hpp"],
     visibility = ["//visibility:public"],
     deps = [
         "//core/threading:vmos-threading",

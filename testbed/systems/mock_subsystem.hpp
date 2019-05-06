@@ -2,6 +2,7 @@
 #define _MOCK_SUBSYSTEM_H_
 #include <thread>
 #include "core/threading/message_queue.hpp"
+
 namespace VMOS
 {
     namespace TestBed
@@ -10,7 +11,7 @@ namespace VMOS
             private:
                
                 std::thread* run_thread;
-                
+                MessageQueue<int>* queue;
                 //TODO: Replace with Message Queue
 
             public:

@@ -1,12 +1,8 @@
 #include <iostream>
 #include "core/threading/message_queue.hpp"
-
-#include "core/math/euler.hpp"
-#include "core/math/conversions.hpp"
-#include "hardware/sensors/BNO055.h"
+#include "core/threading/queue_manager.hpp"
 #include "core/logging/logging.hpp"
-#include "hardware/i2c/i2c.hpp"
-#include "testbed/systems/sensor_subsystem.hpp"
+#include "testbed/systems/mock_subsystem.hpp"
 #include <string>
 #include <thread>
 using namespace VMOS;
@@ -16,11 +12,11 @@ int main(){
     VMOS::Logging::Log("TestBed", "main" , "VMOS Test Bed Running.");
 
 
-    VMOS::TestBed::SensorSubsystem senSys;
-    std::thread sensorThread(std::ref(senSys));
-    sensorThread.detach();
-
-    Euler lastVal;
+    VMOS::TestBed::MockSubsystem mock;
+    std::thread mockThread(std::ref(mock));
+    mockThread.detach();
+    
+    VMOS::QueueManager<int>::fetch("Test");
     for(;;){
 
        
