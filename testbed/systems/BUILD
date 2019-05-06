@@ -10,3 +10,14 @@ cc_library(
         "//hardware/i2c:vmos-i2c",
     ],
 )
+
+cc_library(
+    name = "mock-subsystem",
+    srcs = ["mock.cpp"],
+    hdrs = ["mock.hpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//core/threading:vmos-threading",
+        "//core:vmos-core",
+    ],
+)
