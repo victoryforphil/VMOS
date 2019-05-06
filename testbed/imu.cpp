@@ -22,14 +22,14 @@ int main(){
 
     Euler lastVal;
     for(;;){
-
+        /*
         if(MessageQueue::getValue() != lastVal ){
             lastVal = MessageQueue::getValue();
             VMOS::Logging::Log("TestBed", "main - IMU",  MessageQueue::getValue().ToStringAreo());
         }
        
         //VMOS::Logging::Log("TestBed", "main - IMU", "IMU Orient: " + VMOS::TestBed::SensorSubsystem::angel->ToString());
-
+        */
     }
 
     return 0;

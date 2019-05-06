@@ -22,6 +22,6 @@ void VMOS::TestBed::SensorSubsystem::operator()()
 
 void VMOS::TestBed::SensorSubsystem::tick()
 {
-    imu->GetFusedOrientation(MessageQueue::getRef());
+    //imu->GetFusedOrientation(MessageQueue::getRef());
 }
 

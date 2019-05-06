@@ -6,13 +6,12 @@
 
 template <typename T>
 class MessageQueue{
-    protected:
-        std::unique_ptr<T> messages_;
+    private:
+        std::unique_ptr<T[]> messages_;
         
     public:
-        MessageQueue<T>(uint8_t len): messages_(new T[len]){ };
-        T* getRef();
-        T getValue(){return ;}
+        explicit MessageQueue(uint8_t len);
+        void getLatest(T* out);
 };
 
 
