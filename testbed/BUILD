@@ -1,6 +1,7 @@
 cc_binary(
     name = "main",
     srcs = ["main.cpp"],
+    linkopts = ["-pthread"],
     deps = [
         "//core/threading:vmos-threading",
         "//core:vmos-core",

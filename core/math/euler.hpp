@@ -26,7 +26,11 @@ class Euler{
         void setPitch(double val);
         void setRoll(double val);
 
+        bool operator==(Euler& other) const;
+        bool operator!=(Euler& other) const;
+
         std::string ToString();
+        std::string ToStringAreo();
 
 };
 

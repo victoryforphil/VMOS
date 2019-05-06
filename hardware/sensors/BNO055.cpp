@@ -3,7 +3,7 @@
 using namespace VMOS;
 
 bool BNO055::Init(){
-   return BNO055::Init(BNO055Mode::NDOF);
+   return BNO055::Init(BNO055Mode::IMU_PLUS);
 }
 
 bool BNO055::Init(BNO055::BNO055Mode operationMode){
@@ -115,10 +115,11 @@ int BNO055::GetFusedOrientation(Euler* orientation){
         return 1;
     }
 
-    
-    orientation->setYaw((headingLSB | (headingMSB << 8) ) / 16);
-    orientation->setRoll((rollLSB | (rollMSB << 8) ) / 16);
-    orientation->setPitch((pitchLSB | (pitchMSB << 8) ) / 16);
+   
+
+    orientation->setYaw(   ((double) (headingLSB | (headingMSB << 8)) ) / 16);
+    orientation->setRoll(  ((double) (rollLSB    | (rollMSB    << 8)) ) / 16);
+    orientation->setPitch( ((double) (pitchLSB   | (pitchMSB   << 8)) ) / 256);
     
 
     return 0;
