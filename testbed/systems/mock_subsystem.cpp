@@ -4,15 +4,15 @@ using namespace VMOS;
 using namespace TestBed;
 
 
-
+ 
 void VMOS::TestBed::MockSubsystem::operator()()
 {
-    //queue = VMOS::QueueManager<int>::fetch("test");
+    queue = VMOS::QueueManager<int>::fetch("mock-thread");
 
     while (true)
     {
         tick();
-        usleep(10000); // 10ms (100hz)
+        usleep(10); // 1ms (1000hz)
       
     }
 }
@@ -21,6 +21,7 @@ void VMOS::TestBed::MockSubsystem::operator()()
 
 void VMOS::TestBed::MockSubsystem::tick()
 {
-   
+    tickN++;
+    queue->write(tickN);
 }
 

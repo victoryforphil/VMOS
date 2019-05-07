@@ -1,10 +1,12 @@
+/*
+
 #include "queue_manager.hpp"
 
 using namespace VMOS;
 template <typename T>
 std::unordered_map<std::string, MessageQueue<T>> QueueManager<T>::allQueues_;
 
-/*
+
 template <typename T>
 MessageQueue<T>* QueueManager<T>::fetch(char* name)
 {
