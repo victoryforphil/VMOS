@@ -20,13 +20,14 @@ cc_library(
     deps = [
         "//core/threading:vmos-threading",
         "//core:vmos-core",
-        "mock_cc_proto",
+        ":mock_cc_proto",
     ],
 )
 
 cc_proto_library(
     name = "mock_cc_proto",
     deps = [":mock_proto"],
+    visibility = ["//visibility:public"],
 )
 proto_library(
     name = "mock_proto",

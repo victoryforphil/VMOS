@@ -21,5 +21,6 @@ cc_binary(
         "//hardware:vmos-hardware",
         "//hardware/i2c:vmos-i2c",
         "//testbed/systems:mock-subsystem",
+        "//testbed/systems:mock_cc_proto",
     ],
 )

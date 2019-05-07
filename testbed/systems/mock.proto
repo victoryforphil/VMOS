@@ -2,7 +2,8 @@ syntax = "proto2";
 
 option cc_enable_arenas = true;
 
-package testbed.mock;
+package VMOS.TestBed;
 message MockSubsystemOutput{
     required uint64 mock_tick = 1;
+    required uint64 half_tick = 2;
 }

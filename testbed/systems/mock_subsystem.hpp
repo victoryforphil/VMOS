@@ -1,6 +1,7 @@
 #ifndef _MOCK_SUBSYSTEM_H_
 #define _MOCK_SUBSYSTEM_H_
 #include <thread>
+#include "testbed/systems/mock.pb.h"
 #include "core/threading/message_queue.hpp"
 #include "core/threading/queue_manager.hpp"
 namespace VMOS
@@ -11,7 +12,7 @@ namespace VMOS
             private:
                 int tickN = 0;
                 std::thread* run_thread;
-                MessageQueue<int>* queue;
+                MessageQueue<MockSubsystemOutput>* queue;
                 //TODO: Replace with Message Queue
 
             public:

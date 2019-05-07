@@ -18,12 +18,12 @@ int main(){
     std::thread mockThread1(std::ref(mock1));
     mockThread1.detach();
 
-    MessageQueue<int>* queue =  VMOS::QueueManager<int>::fetch("mock-thread");
+    MessageQueue<TestBed::MockSubsystemOutput>* queue =  VMOS::QueueManager<TestBed::MockSubsystemOutput>::fetch("mock-thread");
     for(;;){
 
-        int message;
+        TestBed::MockSubsystemOutput message;
         queue->getLatest(message);
-        VMOS::Logging::Log("TestBed", "main - Mock", "Test Tick: " + std::to_string(message));
+        VMOS::Logging::Log("TestBed", "main - Mock", "Test Tick: " + std::to_string(message.mock_tick()) + " / " + std::to_string(message.half_tick()));
         usleep(500000);
     }
 
