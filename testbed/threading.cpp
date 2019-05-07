@@ -6,13 +6,14 @@
 #include <string>
 #include <thread>
 #include <unistd.h>
+#include "testbed/systems/mock.pb.h"
 using namespace VMOS;
 
 int main(){
     
     VMOS::Logging::Log("TestBed", "main" , "VMOS Test Bed Running.");
 
-
+    
     VMOS::TestBed::MockSubsystem mock1;
     std::thread mockThread1(std::ref(mock1));
     mockThread1.detach();
@@ -20,9 +21,9 @@ int main(){
     MessageQueue<int>* queue =  VMOS::QueueManager<int>::fetch("mock-thread");
     for(;;){
 
-        int val = 0;
-        queue->getLatest(val);
-        VMOS::Logging::Log("TestBed", "main - Mock", "Test Tick: " + std::to_string(val));
+        int message;
+        queue->getLatest(message);
+        VMOS::Logging::Log("TestBed", "main - Mock", "Test Tick: " + std::to_string(message));
         usleep(500000);
     }
 

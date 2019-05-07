@@ -1,0 +1,8 @@
+syntax = "proto2";
+
+option cc_enable_arenas = true;
+
+package testbed.mock;
+message MockSubsystemOutput{
+    required uint64 mock_tick = 1;
+}

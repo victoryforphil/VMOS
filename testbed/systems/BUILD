@@ -1,3 +1,4 @@
+
 cc_library(
     name = "sensor-subsystem",
     srcs = ["sensor_subsystem.cpp"],
@@ -19,5 +20,19 @@ cc_library(
     deps = [
         "//core/threading:vmos-threading",
         "//core:vmos-core",
+        "mock_cc_proto",
     ],
+)
+
+cc_proto_library(
+    name = "mock_cc_proto",
+    deps = [":mock_proto"],
+)
+proto_library(
+    name = "mock_proto",
+    srcs = ["mock.proto"],
+    deps = [
+        "@com_google_protobuf//:any_proto",
+        
+],
 )
