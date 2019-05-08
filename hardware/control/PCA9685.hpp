@@ -1,6 +1,8 @@
 #ifndef _PCA9685_H_
 #define _PCA9685_H_
-
+#include "core/logging/logging.hpp"
+#include "hardware/i2c/i2c.hpp"
+#include <unistd.h>
 /*
     PCA9685 - Adafruit 16-Channel 12-bit PWM/Servo Ddriver - IC2 Interface
 
@@ -27,15 +29,14 @@ namespace VMOS
                 PRE_SCALE     = 0xFE,
                 TestMode      = 0xFF
             };
-
-            char GetPWMRegister(int reg);
+            I2C i2cClient;
+            
 
         public:
-            int Check();
-
-            int GetPWM();
-            int SetPWM(int channel, int value);
+            void init(int freq);
+            void setPWM(int channel, int value);
         
+
     };
 } // VMOS
 

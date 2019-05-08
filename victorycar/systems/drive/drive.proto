@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+option cc_enable_arenas = true;
+
+package VMOS.VictoryCar;
+message DriveSubsystemInput{
+    required float throttle = 1;
+    required float steer = 2;
+}
