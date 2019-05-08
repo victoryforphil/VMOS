@@ -6,6 +6,7 @@ cc_binary(
         "//core/threading:vmos-queues",
         "//core:vmos-core",
         "//hardware:vmos-hardware",
-        "//victorycar/systems/drive:drive-subsystem"
+        "//victorycar/systems/drive:drive-subsystem",
+        "//victorycar/systems/sense:sensor-subsystem"
     ],
 )

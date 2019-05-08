@@ -9,29 +9,18 @@ cc_library(
         "//core:vmos-core",
         "//hardware:vmos-hardware",
         "//hardware/i2c:vmos-i2c",
-    ],
-)
-
-cc_library(
-    name = "mock-subsystem",
-    srcs = ["mock_subsystem.cpp"],
-    hdrs = ["mock_subsystem.hpp"],
-    visibility = ["//visibility:public"],
-    deps = [
-        "//core/threading:vmos-threading",
-        "//core:vmos-core",
-        ":mock_cc_proto",
+        ":imu_cc_proto",
     ],
 )
 
 cc_proto_library(
-    name = "mock_cc_proto",
-    deps = [":mock_proto"],
+    name = "imu_cc_proto",
+    deps = [":imu_proto"],
     visibility = ["//visibility:public"],
 )
 proto_library(
-    name = "mock_proto",
-    srcs = ["mock.proto"],
+    name = "imu_proto",
+    srcs = ["imu.proto"],
     deps = [
         "@com_google_protobuf//:any_proto",
         

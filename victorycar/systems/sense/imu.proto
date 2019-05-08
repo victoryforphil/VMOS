@@ -1,0 +1,12 @@
+syntax = "proto2";
+
+option cc_enable_arenas = true;
+
+package VMOS.VictoryCar;
+message ImuOutput{
+    required double orientation_yaw = 1;
+    required double orientation_pitch = 2;
+    required double orientation_roll = 3;
+
+  
+}

@@ -12,9 +12,8 @@ namespace VMOS
         class DriveSubsystem{
             private:
                 
-                std::thread* run_thread;
+              
                 MessageQueue<DriveSubsystemInput>* queue;
-                //TODO: Replace with Message Queue
                 PCA9685* pwmControl;
             public:
                 void operator()();
