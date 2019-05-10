@@ -10,3 +10,11 @@ cc_binary(
         "//victorycar/systems/sense:sensor-subsystem"
     ],
 )
+
+platform(
+    name = "jetson",
+    constraint_values = [
+        "@bazel_tools//platforms:linux",
+        "@bazel_tools//platforms:arm",
+    ],
+)

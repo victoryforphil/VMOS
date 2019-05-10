@@ -1,0 +1,13 @@
+build:tx2 --cpu=aarch64
+
+build:tx2 --crosstool_top=//tools:toolchain
+
+# Use --cpu as a differentiator.
+
+
+
+# Specify a "sane" C++ toolchain for the host platform.
+
+build:tx2 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+build:tx2 --verbose_failures

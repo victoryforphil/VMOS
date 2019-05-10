@@ -2,7 +2,7 @@
 #include "victorycar/systems/drive/drive_subsystem.hpp"
 int main()
 {
-    VMOS::Logging::Log("TestBed", "main", "VMOS Test Bed Running.");
+    VMOS::Logging::Log("TestBed", "main", "VMOS Victory Car Main Application Running.");
 
     VMOS::VictoryCar::DriveSubsystem driveSub;
     std::thread driveTrhead(std::ref(driveSub));
