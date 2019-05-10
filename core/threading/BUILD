@@ -20,3 +20,14 @@ cc_library(
     ],
 )
 
+cc_test(
+    name = "queue-test",
+    srcs = ["queue_test.cpp"],
+    copts = ["-Iexternal/gtest/include"],
+    deps = [
+        "@gtest//:main",
+        ":vmos-queues",
+    ],
+)
+
+

@@ -16,7 +16,7 @@ class MessageQueue{
         
         void getLatest(T& out);
 
-        void write(const T data);
+        int write(const T data);
 };
 
 template <typename T>
@@ -29,7 +29,7 @@ void MessageQueue<T>::getLatest(T& out){
 }
 
 template <typename T>
-void MessageQueue<T>::write(const T data){
+int MessageQueue<T>::write(const T data){
 
     messages_[index] = data;
     
@@ -42,6 +42,7 @@ void MessageQueue<T>::write(const T data){
     }else{
         index += 1;
     }
+    return index;
 }
 
 #endif
