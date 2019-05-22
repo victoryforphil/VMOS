@@ -2,34 +2,45 @@
 
 using namespace VMOS;
 
-PIDController::PIDController(){
+PIDController::PIDController()
+{
     _settings = {
         0.5,
         0,
         0,
         0,
-        0.1
-    };
+        0.1};
 
     _setpoint = 0;
 }
 
-PIDController::PIDController(PIDSettings settings){
+PIDController::PIDController(PIDSettings settings)
+{
     _settings = settings;
     _setpoint = 0;
 }
 
-PIDSettings PIDController::getSettings(){
+PIDSettings PIDController::getSettings()
+{
     return _settings;
 }
 
-void PIDController::setSettings(PIDSettings settings){
+void PIDController::setSettings(PIDSettings settings)
+{
     _settings = settings;
 }
 
-void PIDController::setSetpoint(double setpoint){
+void PIDController::setSetpoint(double setpoint)
+{
     _setpoint = setpoint;
 }
 
+void PIDController::tick(double input)
+{
 
 
+    double error = _setpoint - input;
+    double pOut  = _settings.kP * error;
+
+
+}

@@ -1,6 +1,6 @@
 #ifndef _PID_CONTROLLER_H
 #define _PID_CONTROLLER_H
-
+#include <time.h>
 /*
 ----------------------------------
 VMOS/Core - PID Controller (pid_controller.hpp - _PID_CONTROLLER_H)
@@ -31,6 +31,10 @@ namespace VMOS
             PIDSettings _settings; // Current PID settings
             double      _setpoint; // Current setpoint
             bool        _atTarget;
+            double      _prevError;
+            float        _lastTime  = -1;
+            double      _result;
+  
 
         public:
             /// Class Constructors
