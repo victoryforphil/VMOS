@@ -10,10 +10,11 @@ int main(){
     VMOS::Logging::Log("TestBed", "main" , "VMOS Test Bed Running.");
 
     VL53L1X lidar;
-    lidar.Init(0x52);
-
+    lidar.Init(0x29);
+    lidar.StartRanging();
     while(true){
         int distance = -1;
+        
         lidar.GetDistance(&distance);
         std::cout<<"Lidar: " << distance << std::endl;
     }

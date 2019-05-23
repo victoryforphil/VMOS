@@ -49,8 +49,8 @@ toolchain {
   cxx_builtin_include_directory: "/usr/aarch64-linux-gnu/include/c++/5/"
   cxx_builtin_include_directory: "/usr/aarch64-linux-gnu/include/c++/5/backward"
   cxx_builtin_include_directory: "/usr/aarch64-linux-gnu/include/"
-  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/8/include"
-  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/8/include-fixed"
+  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/7/include"
+  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/7/include-fixed"
 
   cxx_flag: "-std=c++11"
 

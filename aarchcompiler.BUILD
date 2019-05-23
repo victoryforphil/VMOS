@@ -59,7 +59,7 @@ filegroup(
 filegroup(
   name = 'compiler_pieces',
   srcs = glob([
-    'usr/lib/gcc-cross/aarch64-linux-gnu/8/**',
+    'usr/lib/gcc-cross/aarch64-linux-gnu/7/**',
     'usr/aarch64-linux-gnu/**',
   ]),
 )
