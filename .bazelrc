@@ -11,3 +11,19 @@ build:tx2 --crosstool_top=//tools:toolchain
 build:tx2 --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
 
 build:tx2 --verbose_failures
+
+
+
+build:pi --cpu=armf
+
+build:pi --crosstool_top=//tools:toolchain
+
+# Use --cpu as a differentiator.
+
+
+
+# Specify a "sane" C++ toolchain for the host platform.
+
+build:pi --host_crosstool_top=@bazel_tools//tools/cpp:toolchain
+
+build:pi --verbose_failures

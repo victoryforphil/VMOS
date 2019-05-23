@@ -6,7 +6,10 @@ default_toolchain {
   cpu: "aarch64"
   toolchain_identifier: "aarch64-linux-gnu"
 }
-
+default_toolchain {
+  cpu: "armf"
+  toolchain_identifier: "armf-linux-gnu"
+}
 default_toolchain {
   cpu: "k8"
   toolchain_identifier: "local"
@@ -46,8 +49,88 @@ toolchain {
   cxx_builtin_include_directory: "/usr/aarch64-linux-gnu/include/c++/5/"
   cxx_builtin_include_directory: "/usr/aarch64-linux-gnu/include/c++/5/backward"
   cxx_builtin_include_directory: "/usr/aarch64-linux-gnu/include/"
-  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/7/include"
-  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/7/include-fixed"
+  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/8/include"
+  cxx_builtin_include_directory: "/usr/lib/gcc-cross/aarch64-linux-gnu/8/include-fixed"
+
+  cxx_flag: "-std=c++11"
+
+  cxx_flag: "-isystem"
+  cxx_flag: "__TARGET_PYTHON_INCLUDES__"
+  linker_flag: "-lstdc++"
+
+  unfiltered_cxx_flag: "-Wno-builtin-macro-redefined"
+  unfiltered_cxx_flag: "-D__DATE__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIMESTAMP__=\"redacted\""
+  unfiltered_cxx_flag: "-D__TIME__=\"redacted\""
+
+  unfiltered_cxx_flag: "-no-canonical-prefixes"
+  unfiltered_cxx_flag: "-fno-canonical-system-headers"
+
+  compiler_flag: "-U_FORTIFY_SOURCE"
+  compiler_flag: "-D_FORTIFY_SOURCE=1"
+  compiler_flag: "-fstack-protector"
+  linker_flag: "-Wl,-z,relro,-z,now"
+
+  linker_flag: "-no-canonical-prefixes"
+  linker_flag: "-pass-exit-codes"
+
+  linker_flag: "-Wl,--build-id=md5"
+  linker_flag: "-Wl,--hash-style=gnu"
+
+  compilation_mode_flags {
+    mode: DBG
+    compiler_flag: "-g"
+  }
+  compilation_mode_flags {
+    mode: OPT
+
+    compiler_flag: "-g0"
+    compiler_flag: "-O2"
+    compiler_flag: "-DNDEBUG"
+    compiler_flag: "-ffunction-sections"
+    compiler_flag: "-fdata-sections"
+    linker_flag: "-Wl,--gc-sections"
+  }
+  linking_mode_flags { mode: DYNAMIC }
+}
+
+
+toolchain {
+  abi_version: "armf"
+  abi_libc_version: "armf"
+  builtin_sysroot: ""
+  compiler: "compiler"
+  host_system_name: "armf"
+  needsPic: true
+  supports_gold_linker: false
+  supports_incremental_linker: false
+  supports_fission: false
+  supports_interface_shared_objects: false
+  supports_normalizing_ar: false
+  supports_start_end_lib: false
+  target_libc: "armf"
+  target_cpu: "armf"
+  target_system_name: "armf"
+  toolchain_identifier: "armf-linux-gnu"
+
+  tool_path { name: "ar" path: "/usr/bin/arm-linux-gnueabihf-ar" }
+  tool_path { name: "compat-ld" path: "/bin/false" }
+  tool_path { name: "cpp" path: "/usr/bin/arm-linux-gnueabihf-cpp" }
+  tool_path { name: "dwp" path: "/usr/bin/arm-linux-gnueabihf-dwp" }
+  tool_path { name: "gcc" path: "/usr/bin/arm-linux-gnueabihf-gcc" }
+  tool_path { name: "gcov" path: "/usr/bin/arm-linux-gnueabihf-gcov" }
+  tool_path { name: "ld" path: "/usr/bin/arm-linux-gnueabihf-ld" }
+  tool_path { name: "nm" path: "/usr/bin/arm-linux-gnueabihf-nm" }
+  tool_path { name: "objcopy" path: "/usr/bin/arm-linux-gnueabihf-objcopy" }
+  tool_path { name: "objdump" path: "/usr/bin/aarm-linux-gnueabihf-objdump" }
+  tool_path { name: "strip" path: "/usr/bin/arm-linux-gnueabihf-strip" }
+
+  cxx_builtin_include_directory: "__TARGET_PYTHON_INCLUDES__"
+  cxx_builtin_include_directory: "/usr/arm-linux-gnueabihf/include/c++/5/"
+  cxx_builtin_include_directory: "/usr/arm-linux-gnueabihf/include/c++/5/backward"
+  cxx_builtin_include_directory: "/usr/arm-linux-gnueabihf/include/"
+  cxx_builtin_include_directory: "/usr/lib/gcc-cross/arm-linux-gnueabihf/8/include"
+  cxx_builtin_include_directory: "/usr/lib/gcc-cross/arm-linux-gnueabihf/8/include-fixed"
 
   cxx_flag: "-std=c++11"
 
