@@ -1,7 +1,7 @@
 cc_library(
     name = "vmos-sensors",
-    srcs = ["BNO055.cpp"],
-    hdrs = ["BNO055.h"],
+    srcs = ["BNO055.cpp", "VL53L1X.cpp"],
+    hdrs = ["BNO055.h", "VL53L1X.hpp"],
     visibility = ["//visibility:public"],
     deps = [
         "//core:vmos-core",
