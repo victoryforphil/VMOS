@@ -6,5 +6,6 @@ cc_library(
     deps = [
         "//core:vmos-core",
         "//hardware/i2c:vmos-i2c",
+        "//hardware/sensors/VL53L1X_STLIB:VL53L1X-STLib"
     ],
 )

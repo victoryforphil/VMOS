@@ -9,95 +9,208 @@ int Init(int address);
         */
 
 using namespace VMOS;
-uint8_t configBlock[] = {
-    0x29, 0x02, 0x10, 0x00, 0x28, 0xBC, 0x7A, 0x81, //8
-    0x80, 0x07, 0x95, 0x00, 0xED, 0xFF, 0xF7, 0xFD, //16
-    0x9E, 0x0E, 0x00, 0x10, 0x01, 0x00, 0x00, 0x00, //24
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x34, 0x00, //32
-    0x28, 0x00, 0x0D, 0x0A, 0x00, 0x00, 0x00, 0x00, //40
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x11, //48
-    0x02, 0x00, 0x02, 0x08, 0x00, 0x08, 0x10, 0x01, //56
-    0x01, 0x00, 0x00, 0x00, 0x00, 0xFF, 0x00, 0x02, //64
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x0B, 0x00, //72
-    0x00, 0x02, 0x0A, 0x21, 0x00, 0x00, 0x02, 0x00, //80
-    0x00, 0x00, 0x00, 0xC8, 0x00, 0x00, 0x38, 0xFF, //88
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x91, 0x0F, //96
-    0x00, 0xA5, 0x0D, 0x00, 0x80, 0x00, 0x0C, 0x08, //104
-    0xB8, 0x00, 0x00, 0x00, 0x00, 0x0E, 0x10, 0x00, //112
-    0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x0F, //120
-    0x0D, 0x0E, 0x0E, 0x01, 0x00, 0x02, 0xC7, 0xFF, //128
-    0x8B, 0x00, 0x00, 0x00, 0x01, 0x01, 0x40        //129 - 135 (0x81 - 0x87)
+
+const uint8_t VL51L1X_DEFAULT_CONFIGURATION[] = {
+    0x00, /* 0x2d : set bit 2 and 5 to 1 for fast plus mode (1MHz I2C), else don't touch */
+    0x00, /* 0x2e : bit 0 if I2C pulled up at 1.8V, else set bit 0 to 1 (pull up at AVDD) */
+    0x00, /* 0x2f : bit 0 if GPIO pulled up at 1.8V, else set bit 0 to 1 (pull up at AVDD) */
+    0x01, /* 0x30 : set bit 4 to 0 for active high interrupt and 1 for active low (bits 3:0 must be 0x1), use SetInterruptPolarity() */
+    0x02, /* 0x31 : bit 1 = interrupt depending on the polarity, use CheckForDataReady() */
+    0x00, /* 0x32 : not user-modifiable */
+    0x02, /* 0x33 : not user-modifiable */
+    0x08, /* 0x34 : not user-modifiable */
+    0x00, /* 0x35 : not user-modifiable */
+    0x08, /* 0x36 : not user-modifiable */
+    0x10, /* 0x37 : not user-modifiable */
+    0x01, /* 0x38 : not user-modifiable */
+    0x01, /* 0x39 : not user-modifiable */
+    0x00, /* 0x3a : not user-modifiable */
+    0x00, /* 0x3b : not user-modifiable */
+    0x00, /* 0x3c : not user-modifiable */
+    0x00, /* 0x3d : not user-modifiable */
+    0xff, /* 0x3e : not user-modifiable */
+    0x00, /* 0x3f : not user-modifiable */
+    0x0F, /* 0x40 : not user-modifiable */
+    0x00, /* 0x41 : not user-modifiable */
+    0x00, /* 0x42 : not user-modifiable */
+    0x00, /* 0x43 : not user-modifiable */
+    0x00, /* 0x44 : not user-modifiable */
+    0x00, /* 0x45 : not user-modifiable */
+    0x20, /* 0x46 : interrupt configuration 0->level low detection, 1-> level high, 2-> Out of window, 3->In window, 0x20-> New sample ready , TBC */
+    0x0b, /* 0x47 : not user-modifiable */
+    0x00, /* 0x48 : not user-modifiable */
+    0x00, /* 0x49 : not user-modifiable */
+    0x02, /* 0x4a : not user-modifiable */
+    0x0a, /* 0x4b : not user-modifiable */
+    0x21, /* 0x4c : not user-modifiable */
+    0x00, /* 0x4d : not user-modifiable */
+    0x00, /* 0x4e : not user-modifiable */
+    0x05, /* 0x4f : not user-modifiable */
+    0x00, /* 0x50 : not user-modifiable */
+    0x00, /* 0x51 : not user-modifiable */
+    0x00, /* 0x52 : not user-modifiable */
+    0x00, /* 0x53 : not user-modifiable */
+    0xc8, /* 0x54 : not user-modifiable */
+    0x00, /* 0x55 : not user-modifiable */
+    0x00, /* 0x56 : not user-modifiable */
+    0x38, /* 0x57 : not user-modifiable */
+    0xff, /* 0x58 : not user-modifiable */
+    0x01, /* 0x59 : not user-modifiable */
+    0x00, /* 0x5a : not user-modifiable */
+    0x08, /* 0x5b : not user-modifiable */
+    0x00, /* 0x5c : not user-modifiable */
+    0x00, /* 0x5d : not user-modifiable */
+    0x01, /* 0x5e : not user-modifiable */
+    0xdb, /* 0x5f : not user-modifiable */
+    0x0f, /* 0x60 : not user-modifiable */
+    0x01, /* 0x61 : not user-modifiable */
+    0xf1, /* 0x62 : not user-modifiable */
+    0x0d, /* 0x63 : not user-modifiable */
+    0x01, /* 0x64 : Sigma threshold MSB (mm in 14.2 format for MSB+LSB), use SetSigmaThreshold(), default value 90 mm  */
+    0x68, /* 0x65 : Sigma threshold LSB */
+    0x00, /* 0x66 : Min count Rate MSB (MCPS in 9.7 format for MSB+LSB), use SetSignalThreshold() */
+    0x80, /* 0x67 : Min count Rate LSB */
+    0x08, /* 0x68 : not user-modifiable */
+    0xb8, /* 0x69 : not user-modifiable */
+    0x00, /* 0x6a : not user-modifiable */
+    0x00, /* 0x6b : not user-modifiable */
+    0x00, /* 0x6c : Intermeasurement period MSB, 32 bits register, use SetIntermeasurementInMs() */
+    0x00, /* 0x6d : Intermeasurement period */
+    0x0f, /* 0x6e : Intermeasurement period */
+    0x89, /* 0x6f : Intermeasurement period LSB */
+    0x00, /* 0x70 : not user-modifiable */
+    0x00, /* 0x71 : not user-modifiable */
+    0x00, /* 0x72 : distance threshold high MSB (in mm, MSB+LSB), use SetD:tanceThreshold() */
+    0x00, /* 0x73 : distance threshold high LSB */
+    0x00, /* 0x74 : distance threshold low MSB ( in mm, MSB+LSB), use SetD:tanceThreshold() */
+    0x00, /* 0x75 : distance threshold low LSB */
+    0x00, /* 0x76 : not user-modifiable */
+    0x01, /* 0x77 : not user-modifiable */
+    0x0f, /* 0x78 : not user-modifiable */
+    0x0d, /* 0x79 : not user-modifiable */
+    0x0e, /* 0x7a : not user-modifiable */
+    0x0e, /* 0x7b : not user-modifiable */
+    0x00, /* 0x7c : not user-modifiable */
+    0x00, /* 0x7d : not user-modifiable */
+    0x02, /* 0x7e : not user-modifiable */
+    0xc7, /* 0x7f : ROI center, use SetROI() */
+    0xff, /* 0x80 : XY ROI (X=Width, Y=Height), use SetROI() */
+    0x9B, /* 0x81 : not user-modifiable */
+    0x00, /* 0x82 : not user-modifiable */
+    0x00, /* 0x83 : not user-modifiable */
+    0x00, /* 0x84 : not user-modifiable */
+    0x01, /* 0x85 : not user-modifiable */
+    0x00, /* 0x86 : clear interrupt, use ClearInterrupt() */
+    0x40  /* 0x87 : start ranging, use StartRanging() or StopRanging(), If you want an automatic start after VL53L1X_init() call, put 0x40 in location 0x87 */
 };
+
 int VMOS::VL53L1X::Init(u_int8_t address)
 {
-        Logging::Log("VL53L1X", "Init", "Enabling Sensor...");
-        i2cClient.setup(address);
-        i2cClient.writeData(VL53L1XRegister::SOFT_RESET, 0x00);
-        usleep(100000);
-        i2cClient.writeData(VL53L1XRegister::SOFT_RESET, 0x01);
+    Logging::Log("VL53L1X", "Init", "Enabling Sensor...");
+    i2cClient.setup(address);
 
-        usleep(500000);
-        i2cClient.writeData(VL53L1XRegister::DSS_CONFIG__TARGET_TOTAL_RATE_MCPS_LO, 0x00);
-        i2cClient.writeData(VL53L1XRegister::DSS_CONFIG__TARGET_TOTAL_RATE_MCPS_HI, 0xA0);
-        i2cClient.writeData(VL53L1XRegister::RANGE_CONFIG_VCSEL_PERIOD_A, 0x0F);
-        i2cClient.writeData(VL53L1XRegister::RANGE_CONFIG_VCSEL_PERIOD_B, 0x0D);
-        i2cClient.writeData(VL53L1XRegister::RANGE_CONFIG_VALID_PHASE_HIGH, 0xB8);
-        i2cClient.writeData(VL53L1XRegister::SD_CONFIG__WOI_SD0, 0x0F);
-        i2cClient.writeData(VL53L1XRegister::SD_CONFIG__WOI_SD1, 0x0D);
-        i2cClient.writeData(VL53L1XRegister::SD_CONFIG__INITIAL_PHASE_SD0, 14);
-        i2cClient.writeData(VL53L1XRegister::SD_CONFIG__INITIAL_PHASE_SD1, 14);
+    usleep(10000);
+    Logging::Log("VL53L1X", "Init", "Resetting Sensor...");
+    i2cClient.writeData(VL53L1XRegister::SOFT_RESET, 0x00);
+    usleep(10000);
+    i2cClient.writeData(VL53L1XRegister::SOFT_RESET, 0x01);
+    usleep(10000);
+    Logging::Log("VL53L1X", "Init", "Setting I2C Voltage Sensor...");
+    char i2cResult = 0x00;
+    i2cClient.readData(i2cResult, VL53L1XRegister::VL53L1_PAD_I2C_HV__EXTSUP_CONFIG);
+    i2cResult = (i2cResult & 0xFE) | 0x01;
+    i2cClient.writeData(VL53L1XRegister::VL53L1_PAD_I2C_HV__EXTSUP_CONFIG, i2cResult);
 
-        Logging::Log("VL53L1X", "Init", "Sensor Enabled!");
+    uint8_t Addr = 0x00, tmp = 0;
+    Logging::Log("VL53L1X", "Init", "Loading Default Config Sensor...");
+    for (Addr = 0x2D; Addr <= 0x87; Addr++)
+    {
+        std::stringstream addr_stream;
+        addr_stream << std::hex << (int)Addr;
+        std::string addr_result = addr_stream.str();
+
+        std::stringstream val_stream;
+        val_stream << std::hex << (int)VL51L1X_DEFAULT_CONFIGURATION[Addr - 0x2D];
+        std::string val_result = val_stream.str();
+
+        Logging::Log("VL53L1X", "Init", "Writing default config: " + addr_result + " -> " + val_result);
+        i2cClient.writeData(Addr, VL51L1X_DEFAULT_CONFIGURATION[Addr - 0x2D]);
+        usleep(10000);
+    }
+
+    StartRanging();
+
+    int isReady = 0;
+
+    while (isReady == 0)
+    {
+        CheckForDataRead(&isReady);
+    }
+
+    Logging::Log("VL53L1X", "Init", "Sensor Reading Data!");
+    ClearInterrupts();
+    StopRanging();
+
+    i2cClient.writeData(VL53L1XRegister::VL53L1_VHV_CONFIG__TIMEOUT_MACROP_LOOP_BOUND, 0x09);
+    i2cClient.writeData(0x0B, 0);
+    usleep(500000);
+    Logging::Log("VL53L1X", "Init", "Sensor Enabled!");
 }
 
 int VMOS::VL53L1X::StartRanging()
 {
-        Logging::Log("VL53L1X", "StartRanging", "Enabling Ranging");
-        i2cClient.writeData(VL53L1XRegister::SYSTEM_MODE_START, 0x40); // Enable
+    Logging::Log("VL53L1X", "StartRanging", "Enabling Ranging");
+    i2cClient.writeData(VL53L1XRegister::SYSTEM_MODE_START, 0x40); // Enable
 }
 
 int VMOS::VL53L1X::StopRanging()
 {
-        i2cClient.writeData(VL53L1XRegister::SYSTEM_MODE_START, 0x00); // Enable
+    Logging::Log("VL53L1X", "StartRanging", "Disabling Ranging");
+    i2cClient.writeData(VL53L1XRegister::SYSTEM_MODE_START, 0x00); // Enable
+}
+
+int VMOS::VL53L1X::ClearInterrupts()
+{
+    Logging::Log("VL53L1X", "StartRanging", "Clearing Interrupts");
+    i2cClient.writeData(VL53L1XRegister::SYSTEM__INTERRUPT_CLEAR, 0x01); // Enable
+}
+
+int VMOS::VL53L1X::CheckForDataRead(int *result)
+{
+
+    char statusB = 0x00;
+
+    if (i2cClient.readData(statusB, VL53L1XRegister::GPIO__TIO_HV_STATUS) != 0)
+    {
+        Logging::Log("BNO055", "CheckForDataRead", "Failed to get I2C Data");
+        return 1;
+    };
+
+    if (statusB != 0x03)
+        *result = 1;
+    else
+        *result = 0;
+    return 0;
 }
 
 int VMOS::VL53L1X::GetDistance(int *distance)
-{       
-        uint8_t offset = 0;
-        uint8_t address = 1 + offset; //Start at memory location 0x01, add offset
-        uint8_t leftToSend = sizeof(configBlock) - offset;
-        while (leftToSend > 0)
-        {
-                uint16_t toSend = 32 - 2; //Max I2C buffer on Arduino is 32, and we need 2 bytes for address
-                if (toSend > leftToSend)
-                        toSend = leftToSend;
+{
 
-            
-             
-                for (uint8_t x = 0; x < toSend; x++)
-                {
-                        i2cClient.writeData(address, configBlock[address + x - 1 - offset]);
-                }
+    char data1, data2;
 
-                leftToSend -= toSend;
-                address += toSend;
-        }
-        usleep(10000);
-        char data1, data2;
+    if (i2cClient.readData(data1, VL53L1XRegister::RESULT_FINAL_CROSS_TALK_CORRECTED_RANGE_MM) != 0)
+    {
+        Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
+        return 1;
+    }
 
-        if (i2cClient.readData(data1, VL53L1XRegister::RESULT_FINAL_CROSS_TALK_CORRECTED_RANGE_MM) != 0)
-        {
-                Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-                return 1;
-        }
+    if (i2cClient.readData(data2, VL53L1XRegister::RESULT_FINAL_CROSS_TALK_CORRECTED_RANGE_MM + 1) != 0)
+    {
+        Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
+        return 1;
+    }
 
-        if (i2cClient.readData(data2, VL53L1XRegister::RESULT_FINAL_CROSS_TALK_CORRECTED_RANGE_MM + 1) != 0)
-        {
-                Logging::Log("BNO055", "GetFusedOrientation", "Failed to get I2C Data");
-                return 1;
-        }
+    *distance = (int)((data1 << 8) + data2);
 
-        *distance = (int)((data1 << 8) + data2);
-
-        return 0;
+    return 0;
 }

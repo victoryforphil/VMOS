@@ -1,7 +1,11 @@
 #ifndef _VL53L1X_H
 #define _VL53L1X_H
 #include <linux/i2c.h>
+
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 #include <unistd.h>    //Needed for I2C port
 #include <fcntl.h>     //Needed for I2C port
 #include <sys/ioctl.h> //Needed for I2C port
@@ -22,9 +26,13 @@ public:
     {
         SOFT_RESET = 0x00,
         DEVICE_ADDRESS = 0x01,
+        VL53L1_VHV_CONFIG__TIMEOUT_MACROP_LOOP_BOUND  = 0x0008,
         DSS_CONFIG__TARGET_TOTAL_RATE_MCPS  = 0x0024,
         DSS_CONFIG__TARGET_TOTAL_RATE_MCPS_HI = 0x0024,
         DSS_CONFIG__TARGET_TOTAL_RATE_MCPS_LO = 0x0025,
+        VL53L1_PAD_I2C_HV__EXTSUP_CONFIG = 0x002E,
+        GPIO_HV_MUX__CTRL	= 0x0030,
+        GPIO__TIO_HV_STATUS  =0x0031,
         RANGE_CONFIG_VCSEL_PERIOD_A = 0x0060,
         RANGE_CONFIG_VCSEL_PERIOD_B = 0x0063,
         RANGE_CONFIG_VALID_PHASE_LOW = 0x0068,
@@ -41,6 +49,7 @@ public:
         SD_CONFIG__WOI_SD1 = 0x0079,
         SD_CONFIG__INITIAL_PHASE_SD0 = 0x007A,
         SD_CONFIG__INITIAL_PHASE_SD1 = 0x007B,
+        SYSTEM__INTERRUPT_CLEAR  = 0x0086,
         SYSTEM_MODE_START = 0x0087,
 
         RESULT_FINAL_CROSS_TALK_CORRECTED_RANGE_MM = 0x0098
@@ -50,6 +59,8 @@ public:
     int SetI2CAddress(u_int8_t newAddress);
     int StartRanging();
     int StopRanging();
+    int CheckForDataRead(int *isDataReady);
+    int ClearInterrupts();
     int GetDistance(int *distance);
 };
 

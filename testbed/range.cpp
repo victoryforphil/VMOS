@@ -17,6 +17,8 @@ int main(){
         
         lidar.GetDistance(&distance);
         std::cout<<"Lidar: " << distance << std::endl;
+
+          usleep(100000);
     }
 
     return 0;
