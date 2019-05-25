@@ -38,3 +38,18 @@ cc_binary(
         "//testbed/systems:mock_cc_proto",
     ],
 )
+
+cc_binary(
+    name = "http",
+    srcs = ["http.cpp"],
+    linkopts = ["-pthread"],
+    deps = [
+        "//core/threading:vmos-queues",
+        "//core:vmos-core",
+        "//core/communication/http:vmos-http",
+        "//hardware:vmos-hardware",
+        "//hardware/i2c:vmos-i2c",
+        "//testbed/systems:mock-subsystem",
+        "//testbed/systems:mock_cc_proto",
+    ],
+)
