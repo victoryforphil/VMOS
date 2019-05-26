@@ -234,6 +234,7 @@ VL53L1X_ERROR VL53L1X_SensorInit(uint16_t dev)
 	tmp  = 0;
 	while(tmp==0){
 			status = VL53L1X_CheckForDataReady(dev, &tmp);
+			VL53L1_WaitMs(dev, 2);
 	}
 	status = VL53L1X_ClearInterrupt(dev);
 	status = VL53L1X_StopRanging(dev);

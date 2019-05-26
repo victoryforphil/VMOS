@@ -13,7 +13,7 @@ int main(){
     lidar.Init(0x29);
     lidar.StartRanging();
     while(true){
-        int distance = -1;
+        u_int16_t distance = 9999;
         
         lidar.GetDistance(&distance);
         std::cout<<"Lidar: " << distance << std::endl;

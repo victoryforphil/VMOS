@@ -4,7 +4,7 @@ using namespace VMOS;
 
 int I2C::setup( int addr)
 {
-    Logging::Log("I2C", "const", "Starting new I2C Client at: ");
+    Logging::Log("I2C", "const", "Starting new I2C Client at: " +std::to_string(addr));
 
     if ((file = open(path, O_RDWR)) < 0)
     {

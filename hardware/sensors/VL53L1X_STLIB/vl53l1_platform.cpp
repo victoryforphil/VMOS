@@ -37,9 +37,25 @@
 #include <string.h>
 #include <time.h>
 #include <math.h>
+#include <string>
+#include <sstream>
+#include <unistd.h>    //Needed for I2C port
+#include <fcntl.h>     //Needed for I2C port
+#include <iostream>
+#include "hardware/i2c/i2c.hpp"
+VMOS::I2C _client;
+bool init = false;
 
-
+void setup(uint16_t dev)
+{
+	if(!init){
+		_client.setup(dev);
+		init = true;
+	}
+}
 int8_t VL53L1_WriteMulti( uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t count) {
+	setup(dev);
+	
 	return 0; // to be implemented
 }
 
@@ -48,31 +64,59 @@ int8_t VL53L1_ReadMulti(uint16_t dev, uint16_t index, uint8_t *pdata, uint32_t c
 }
 
 int8_t VL53L1_WrByte(uint16_t dev, uint16_t index, uint8_t data) {
+	setup(dev);
+	_client.writeData(index, data);
 	return 0; // to be implemented
 }
 
 int8_t VL53L1_WrWord(uint16_t dev, uint16_t index, uint16_t data) {
+	setup(dev);
+	_client.writeData(index, data);
+	_client.writeData(index + 1, data >> 8);
+	
 	return 0; // to be implemented
 }
 
 int8_t VL53L1_WrDWord(uint16_t dev, uint16_t index, uint32_t data) {
+	setup(dev);
+	_client.writeData(index, data);
+	_client.writeData(index + 1, data >> 8);
+	_client.writeData(index + 2, data >> 16);
 	return 0; // to be implemented
 }
 
 int8_t VL53L1_RdByte(uint16_t dev, uint16_t index, uint8_t *data) {
+
+	setup(dev);
+	char tmp;
+	_client.readData(tmp,index);
+	std::cout << "Read: " << std::hex << (int)index << " = " << std::hex << (int) tmp << std::endl;
+	*data = tmp;
 	
 	return 0; // to be implemented
 }
 
 int8_t VL53L1_RdWord(uint16_t dev, uint16_t index, uint16_t *data) {
+	setup(dev);
+	char tmp1, tmp2;
+	_client.readData(tmp1,index);
+	_client.readData(tmp2,index + 1);
+
+	*data = (tmp1 | tmp2 << 8);
 	return 0; // to be implemented
 }
 
 int8_t VL53L1_RdDWord(uint16_t dev, uint16_t index, uint32_t *data) {
+	setup(dev);
+	char tmp1, tmp2, tmp3;
+	_client.readData(tmp1,index);
+	_client.readData(tmp2,index + 1);
+	_client.readData(tmp2,index + 3);
+	*data = (tmp1 | tmp2 << 8 | tmp3 << 16);
 	return 0; // to be implemented
 }
 
 int8_t VL53L1_WaitMs(uint16_t dev, int32_t wait_ms){
-	
+	usleep(wait_ms * 1000);
 	return 0; // to be implemented
 }

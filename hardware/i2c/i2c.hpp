@@ -22,6 +22,8 @@ namespace VMOS
             int setup(int addr);
             int readData(char &out, char reg);
             int writeData(char reg, char data);
+
+            
     };
 } // VMOS
 

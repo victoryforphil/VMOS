@@ -1,7 +1,7 @@
 cc_library(
     name = "VL53L1X-STLib",
     srcs = glob(
-        ["*.c"],
+        ["*.c", "*.cpp"],
     ),
     hdrs = glob([
         "*.h"
