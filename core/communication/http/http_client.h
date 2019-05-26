@@ -3,6 +3,7 @@
 
 #include "httplib.h"
 #include <string>
+#include "core/logging/logging.hpp"
 namespace VMOS
 {
     class HTTPClient
@@ -15,9 +16,8 @@ namespace VMOS
         httplib::Client* mClient;
     public:
         HTTPClient(char* host);
-        int get(char* path, char** result);
-        
-        ~HTTPClient();
+        int get(std::string path, std::string* result);
+     
     };
 
        

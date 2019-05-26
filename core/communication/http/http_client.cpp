@@ -2,10 +2,11 @@
 
 VMOS::HTTPClient::HTTPClient(char* host){
     mHost = host;
-    mClient = new httplib::Client(host,mPort, 300L);
+    mClient = new httplib::Client(host);
+    Logging::Log("HTTPClient", "constructor", "Creating new HTTP Client for HOST:" + std::string(host));
 }
 
-int VMOS::HTTPClient::get(char* path, char** result){
+int VMOS::HTTPClient::get(std::string path, std::string* result){
 
     /* Example code from Github
     auto res = cli.Get("/hi");
@@ -13,13 +14,14 @@ int VMOS::HTTPClient::get(char* path, char** result){
         std::cout << res->body << std::endl;
     }
     */
-
-   auto res = mClient->Get(path);
+   
+   auto res = mClient->Get(path.c_str());
    if(res && res->status == 200){
-       *result = (char*) &res->body[0u];
+     
+       *result = res->body;
    }else{
-       
-       return 1;
+     
+       return res->status || 1;
    }
     return 0;
 }
