@@ -9,8 +9,14 @@ namespace VMOS
     {
     private:
         /* data */
+        char* mHost;
+        std::uint16_t mPort = 80;
+
+        httplib::Client* mClient;
     public:
-        HTTPClient(/* args */);
+        HTTPClient(char* host);
+        int get(char* path, char** result);
+        
         ~HTTPClient();
     };
 
