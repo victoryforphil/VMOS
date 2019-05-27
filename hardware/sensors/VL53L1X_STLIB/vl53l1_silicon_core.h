@@ -1,7 +1,7 @@
 /*
 * Copyright (c) 2017, STMicroelectronics - All Rights Reserved
 *
-* This file : part of VL53L1 Core and : dual licensed,
+* This file is part of VL53L1 Core and is dual licensed,
 * either 'STMicroelectronics
 * Proprietary license'
 * or 'BSD 3-clause "New" or "Revised" License' , at your option.
@@ -16,7 +16,7 @@
 * terms at www.st.com/sla0081
 *
 * STMicroelectronics confidential
-* Reproduction and Communication of this document : strictly prohibited unless
+* Reproduction and Communication of this document is strictly prohibited unless
 * specifically authorized in writing by STMicroelectronics.
 *
 *
@@ -59,35 +59,42 @@
 ********************************************************************************
 *
 */
-/**
- * @file  vl53l1x_calibration.h
- * @brief Calibration Functions definition
- */
-
-#ifndef _CALIBRATION_H_
-#define _CALIBRATION_H_
 
 /**
- * @brief This function performs the offset calibration.\n
- * The function returns the offset value found and programs the offset compensation into the device.
- * @param TargetDistInMm target distance in mm, ST recommended 100 mm
- * Target reflectance = grey17%
- * @return 0:success, !=0: failed
- * @return offset pointer contains the offset found in mm
+ * @file  vl53l1_silicon_core.h
+ *
+ * @brief EwokPlus25 low level silicon specific API function definitions
  */
-int8_t VL53L1X_CalibrateOffset(uint16_t dev, uint16_t TargetDistInMm, int16_t *offset);
 
-/**
- * @brief This function performs the xtalk calibration.\n
- * The function returns the xtalk value found and programs the xtalk compensation to the device
- * @param TargetDistInMm target distance in mm\n
- * The target distance : the distance where the sensor start to "under range"\n
- * due to the influence of the photons reflected back from the cover glass becoming strong\n
- * It's also called inflection point\n
- * Target reflectance = grey 17%
- * @return 0: success, !=0: failed
- * @return xtalk pointer contains the xtalk value found in cps (number of photons in count per second)
- */
-int8_t VL53L1X_CalibrateXtalk(uint16_t dev, uint16_t TargetDistInMm, uint16_t *xtalk);
+#ifndef _VL53L1_SILICON_CORE_H_
+#define _VL53L1_SILICON_CORE_H_
 
+#include "vl53l1_platform.h"
+
+#ifdef __cplusplus
+extern "C" {
 #endif
+
+
+/**
+ * @brief  Checks if the firmware is ready for ranging (Silicon variant)
+ *
+ * @param[in]   Dev           : Device Handle
+ * @param[out]  pready        : pointer to data ready flag \n
+ *                                 0 = firmware not ready \n
+ *                                 1 = firmware ready
+ *
+ * @return  VL53L1_ERROR_NONE     Success
+ * @return  "Other error code"    See ::VL53L1_Error
+ */
+
+VL53L1_Error VL53L1_is_firmware_ready_silicon(
+	VL53L1_DEV      Dev,
+	uint8_t        *pready);
+
+
+#ifdef __cplusplus
+}
+#endif
+
+#endif /* _VL53L1_SILICON_CORE_H_ */

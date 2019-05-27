@@ -12,7 +12,10 @@
 #include <linux/i2c-dev.h>
 #include "hardware/i2c/i2c.hpp"
 #include "core/logging/logging.hpp"
-#include "hardware/sensors/VL53L1X_STLIB/VL53L1X_api.h"
+
+#define VL53L1_LOG_ENABLE
+#include "hardware/sensors/VL53L1X_STLIB/vl53l1_api.h"
+#include "hardware/sensors/VL53L1X_STLIB/vl53l1_platform.h"
 // LIDAR DISTANCE SENSOR
 
 namespace VMOS
@@ -20,7 +23,8 @@ namespace VMOS
 class VL53L1X
 {
 private:
-    u_int8_t mAddress;
+    VL53L1_Dev_t* mDev;
+    
 
 public:
     
@@ -29,7 +33,12 @@ public:
     int SetI2CAddress(u_int8_t newAddress);
     int StartRanging();
     int StopRanging();
-    int GetDistance(uint16_t *distance);
+    int GetDistance(int32_t *distance);
+
+    static int i2cRead(uint8_t address, uint8_t reg,uint8_t *list, uint8_t length);
+    static int i2cWrite(uint8_t address, uint8_t reg,uint8_t *list, uint8_t length);
+
+   
 };
 
 } // namespace VMOS

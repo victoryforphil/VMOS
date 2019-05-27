@@ -1,7 +1,8 @@
+
 /*
 * Copyright (c) 2017, STMicroelectronics - All Rights Reserved
 *
-* This file : part of VL53L1 Core and : dual licensed,
+* This file is part of VL53L1 Core and is dual licensed,
 * either 'STMicroelectronics
 * Proprietary license'
 * or 'BSD 3-clause "New" or "Revised" License' , at your option.
@@ -16,7 +17,7 @@
 * terms at www.st.com/sla0081
 *
 * STMicroelectronics confidential
-* Reproduction and Communication of this document : strictly prohibited unless
+* Reproduction and Communication of this document is strictly prohibited unless
 * specifically authorized in writing by STMicroelectronics.
 *
 *
@@ -59,78 +60,49 @@
 ********************************************************************************
 *
 */
-/**
- * @file  vl53l1x_calibration.c
- * @brief Calibration functions implementation
+
+#ifndef _VL53L1_PRESET_SETUP_H_
+#define _VL53L1_PRESET_SETUP_H_
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+/* indexes for the bare driver tuning setting API function */
+enum VL53L1_Tuning_t {
+	VL53L1_TUNING_VERSION = 0,
+	VL53L1_TUNING_PROXY_MIN,
+	VL53L1_TUNING_SINGLE_TARGET_XTALK_TARGET_DISTANCE_MM,
+	VL53L1_TUNING_SINGLE_TARGET_XTALK_SAMPLE_NUMBER,
+	VL53L1_TUNING_MIN_AMBIENT_DMAX_VALID,
+	VL53L1_TUNING_MAX_SIMPLE_OFFSET_CALIBRATION_SAMPLE_NUMBER,
+	VL53L1_TUNING_XTALK_FULL_ROI_TARGET_DISTANCE_MM,
+
+	VL53L1_TUNING_MAX_TUNABLE_KEY
+};
+
+/* default values for the tuning settings parameters */
+#define TUNING_VERSION	0x0003
+
+#define TUNING_PROXY_MIN -30 /* min distance in mm */
+#define TUNING_SINGLE_TARGET_XTALK_TARGET_DISTANCE_MM 600
+/* Target distance in mm for single target Xtalk */
+#define TUNING_SINGLE_TARGET_XTALK_SAMPLE_NUMBER 50
+/* Number of sample used for single target Xtalk */
+#define TUNING_MIN_AMBIENT_DMAX_VALID 8
+/* Minimum ambient level to state the Dmax returned by the device is valid */
+#define TUNING_MAX_SIMPLE_OFFSET_CALIBRATION_SAMPLE_NUMBER 50
+/* Maximum loops to perform simple offset calibration */
+#define TUNING_XTALK_FULL_ROI_TARGET_DISTANCE_MM 600
+/* Target distance in mm for target Xtalk from Bins method*/
+
+/* the following table should actually be defined as static and shall be part
+ * of the VL53L1_StaticInit() function code
  */
-#include "VL53L1X_api.h"
-#include "VL53L1X_calibration.h"
 
-#define ALGO__PART_TO_PART_RANGE_OFFSET_MM	0x001E
-#define MM_CONFIG__INNER_OFFSET_MM			0x0020
-#define MM_CONFIG__OUTER_OFFSET_MM 			0x0022
-
-int8_t VL53L1X_CalibrateOffset(uint16_t dev, uint16_t TargetDistInMm, int16_t *offset)
-{
-	uint8_t i, tmp;
-	int16_t AverageDistance = 0;
-	uint16_t distance;
-	VL53L1X_ERROR status = 0;
-
-	status = VL53L1_WrWord(dev, ALGO__PART_TO_PART_RANGE_OFFSET_MM, 0x0);
-	status = VL53L1_WrWord(dev, MM_CONFIG__INNER_OFFSET_MM, 0x0);
-	status = VL53L1_WrWord(dev, MM_CONFIG__OUTER_OFFSET_MM, 0x0);
-	status = VL53L1X_StartRanging(dev);	/* Enable VL53L1X sensor */
-	for (i = 0; i < 50; i++) {
-		tmp = 0;
-		while (tmp == 0){
-			status = VL53L1X_CheckForDataReady(dev, &tmp);
-		}
-		status = VL53L1X_GetDistance(dev, &distance);
-		status = VL53L1X_ClearInterrupt(dev);
-		AverageDistance = AverageDistance + distance;
-	}
-	status = VL53L1X_StopRanging(dev);
-	AverageDistance = AverageDistance / 50;
-	*offset = TargetDistInMm - AverageDistance;
-	status = VL53L1_WrWord(dev, ALGO__PART_TO_PART_RANGE_OFFSET_MM, *offset*4);
-	return status;
+#ifdef __cplusplus
 }
+#endif
 
-int8_t VL53L1X_CalibrateXtalk(uint16_t dev, uint16_t TargetDistInMm, uint16_t *xtalk)
-{
-	uint8_t i, tmp;
-	float AverageSignalRate = 0;
-	float AverageDistance = 0;
-	float AverageSpadNb = 0;
-	uint16_t distance = 0, spadNum;
-	uint16_t sr;
-	VL53L1X_ERROR status = 0;
-	uint32_t calXtalk;
-
-	status = VL53L1_WrWord(dev, 0x0016,0);
-	status = VL53L1X_StartRanging(dev);
-	for (i = 0; i < 50; i++) {
-		tmp = 0;
-		while (tmp == 0){
-			status = VL53L1X_CheckForDataReady(dev, &tmp);
-		}
-		status= VL53L1X_GetSignalRate(dev, &sr);
-		status= VL53L1X_GetDistance(dev, &distance);
-		status = VL53L1X_ClearInterrupt(dev);
-		AverageDistance = AverageDistance + distance;
-		status = VL53L1X_GetSpadNb(dev, &spadNum);
-		AverageSpadNb = AverageSpadNb + spadNum;
-		AverageSignalRate =
-		    AverageSignalRate + sr;
-	}
-	status = VL53L1X_StopRanging(dev);
-	AverageDistance = AverageDistance / 50;
-	AverageSpadNb = AverageSpadNb / 50;
-	AverageSignalRate = AverageSignalRate / 50;
-	/* Calculate Xtalk value */
-	calXtalk = (uint16_t)(512*(AverageSignalRate*(1-(AverageDistance/TargetDistInMm)))/AverageSpadNb);
-	*xtalk = (uint16_t)(calXtalk*1000)>>9;
-	status = VL53L1_WrWord(dev, 0x0016, calXtalk);
-	return status;
-}
+#endif /* _VL53L1_PRESET_SETUP_H_ */
