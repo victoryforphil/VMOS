@@ -135,7 +135,7 @@ int VMOS::VL53L1X::StartRanging()
 {
      VMOS::Logging::Log("VL53L1X", "Start Ranging", "starting to range");
      VL53L1_Error Status = VL53L1_ERROR_NONE;
-     Status = VL53L1_SetDistanceMode(mDev, 1);
+     Status = VL53L1_SetDistanceMode(mDev, 4);
      Status = VL53L1_SetMeasurementTimingBudgetMicroSeconds(mDev, 66000);
      Status = VL53L1_SetInterMeasurementPeriodMilliSeconds(mDev, 70);
      Status = VL53L1_StartMeasurement(mDev);
