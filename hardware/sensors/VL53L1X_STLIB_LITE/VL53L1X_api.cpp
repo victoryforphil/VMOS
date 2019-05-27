@@ -217,8 +217,8 @@ VL53L1X_ERROR VL53L1X_GetSWVersion(VL53L1X_Version_t *pVersion)
 VL53L1X_ERROR VL53L1X_SetI2CAddress(uint16_t dev, uint8_t new_address)
 {
 	VL53L1X_ERROR status = 0;
-
-	status = VL53L1_WrByte(dev, VL53L1_I2C_SLAVE__DEVICE_ADDRESS, new_address >> 1);
+	// HACK removed >> 1
+	status = VL53L1_WrByte(dev, VL53L1_I2C_SLAVE__DEVICE_ADDRESS, new_address);
 	return status;
 }
 

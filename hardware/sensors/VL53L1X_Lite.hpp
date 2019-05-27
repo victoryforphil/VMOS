@@ -31,7 +31,7 @@ public:
 
     int Init(u_int8_t address);
     int SetI2CAddress(u_int8_t newAddress);
-    int StartRanging();
+    int StartRanging(uint16_t mode);
     int StopRanging();
     int GetDistance(int32_t *distance);
    
