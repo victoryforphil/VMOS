@@ -14,8 +14,8 @@
 #include "core/logging/logging.hpp"
 
 #define VL53L1_LOG_ENABLE
-#include "hardware/sensors/VL53L1X_STLIB/vl53l1_api.h"
-#include "hardware/sensors/VL53L1X_STLIB/vl53l1_platform.h"
+#include "hardware/sensors/VL53L1X_STLIB_LITE/VL53L1X_api.h"
+#include "hardware/sensors/VL53L1X_STLIB_LITE/vl53l1_platform.h"
 // LIDAR DISTANCE SENSOR
 
 namespace VMOS
@@ -23,7 +23,7 @@ namespace VMOS
 class VL53L1XLite
 {
 private:
-    VL53L1_Dev_t* mDev;
+    u_int8_t mAddress;
     
 
 public:

@@ -7,6 +7,6 @@ cc_library(
         "//core:vmos-core",
         "//hardware/i2c:vmos-i2c",
         "//hardware/sensors/VL53L1X_STLIB:VL53L1X-STLib",
-        "//hardware/sensors/VL53L1X_STLIB:VL53L1X-STLib-Lite"
+        "//hardware/sensors/VL53L1X_STLIB_LITE:VL53L1X-STLib-Lite"
     ],
 )

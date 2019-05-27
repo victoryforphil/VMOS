@@ -128,6 +128,7 @@ int VMOS::VL53L1X::Init(u_int8_t address)
 
 int VMOS::VL53L1X::SetI2CAddress(u_int8_t newAddress)
 {
+     
      return 0;
 }
 

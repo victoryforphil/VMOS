@@ -13,7 +13,7 @@ and algortithms. With a focus on modularity, it has become my primary learning p
 [X] - Multi-Threading Message Queues     
 [X] - Protocol Buffer Support     
 [X] - GTest Support     
-[ ] - Socket (TCP) Communication     
+[ ] - Socket (TCP) Communication  (Manual and ASIO)   
 [X] - Cross-Compliling ARM     
 [ ] - Better Deployment Scripts w/ SystemD     
 [ ] - Web Dashboard (HTTP/WS)     
